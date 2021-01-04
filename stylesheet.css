@@ -1,0 +1,28 @@
+body {
+  background-color: #66ccff;
+}
+h1 {
+  font-family: "Courier New";
+  text-align: center;
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 3em;
+  color: #ffffff;
+}
+div {
+  font-family: "Courier New";
+  font-size: 2em;
+  text-align: center;
+}
+p {
+  font-family: "Courier New";
+  color: #ffffff;
+  font-size: 2em;
+  text-align: center;
+}
+
+img {
+  text-align: center;
+  width: 20%;
+  height: auto;
+}
