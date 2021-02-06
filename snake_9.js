@@ -104,7 +104,7 @@ function chooseAGoal (){
     stroke(248,194,58);
     strokeWeight(5);
     fill(255,0);
-    rect(560, 170, 65, 40);
+    rect(565, 170, 65, 40);
     pop();
   }
 
@@ -113,7 +113,7 @@ function chooseAGoal (){
     stroke(248,194,58);
     strokeWeight(5);
     fill(255,0);
-    rect(560, 220, 65, 40);
+    rect(565, 220, 65, 40);
     pop();
   }
 
@@ -122,7 +122,7 @@ function chooseAGoal (){
     stroke(248,194,58);
     strokeWeight(5);
     fill(255,0);
-    rect(560, 270, 65, 40);
+    rect(565, 270, 65, 40);
     pop();
   }
 }
@@ -169,13 +169,13 @@ function berry (x,y, s){
 }
 
 function food() {
-  berry(foodPosition.x, foodPosition.y, 0.5);
   for (let i = 1; i<= snakeLength+1; i++){
     if (positionX[i] === foodPosition.x && positionY[i] === foodPosition.y){
       foodPosition.x = Math.floor(random(2, 13)) * 25;
       foodPosition.y = Math.floor(random(2, 13)) * 25;
     }
   } 
+  berry(foodPosition.x, foodPosition.y, 0.5);
 }
 
 function playground() {
@@ -367,7 +367,7 @@ pop();
 }
 
 function loseScreen (){
-  image(lose, 380, 10, 400, 400);
+  image(lose, 380, 10, 390, 390);
 
   fill(17, 15, 46, 130);
   rect(50, 50, 300, 300);
@@ -651,7 +651,7 @@ if (game !== "title") {
 
 //winning screen
   if (game === "won"){
-    image(win, 390, -10, 440, 440);
+    image(win, 375, 10, 390, 390);
     push();
     fill(255);
     textAlign(CENTER);
