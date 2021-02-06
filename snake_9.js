@@ -480,7 +480,7 @@ let highscore = [0];
 let goal = 26;
 
 //gamescreens
-let game = "title";
+let game = "lost";
 
 //images
 let title = loadImage("pictures/title.png");
@@ -602,7 +602,7 @@ if (game !== "title") {
 
   //losing screen
   if (game === "lost"){
-  image(lose, 380, 40, 350, 350);
+  image(lose, 380, 10, 400, 400);
 
   fill(17, 15, 46, 130);
   rect(50, 50, 300, 300);
@@ -650,7 +650,7 @@ if (snakeLength === goal){
 
 //winning screen
 if (game === "won"){
-image(win, 390, 20, 380, 380);
+image(win, 390, -10, 440, 440);
 push();
 fill(255);
 textAlign(CENTER);
