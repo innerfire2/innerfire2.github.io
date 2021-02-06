@@ -2,38 +2,82 @@
 angleMode(DEGREES);
 
 
-//functions
+//background
+let chess = { x: 0, y: 0 };
+
+//snake Design
+let snakeMainColor = {r:112, g:51, b:112};
+let snakeColor2 = {r:248, g:194, b:58};
+let headTilted = false;
+
+
+//snake engine
+let snakePosition = { x: 75, y: 50 };
+let positionX = [snakePosition.x-25];
+let positionY = [snakePosition.y];
+let snakeLength = 1;
+
+//movement 
+let speed = { x: 0, y: 0 };
+let movement = "right";
+let currentSpeedX = [25]; 
+let currentSpeedY = [0];
+
+//food
+let foodPosition = {
+  x: Math.floor(random(2, 13)) * 25,
+  y: Math.floor(random(2, 13)) * 25,
+};
+
+//score
+let score;
+let highscore = [0];
+let goal = 26;
+
+//gamescreens
+let game = "title";
+
+//images
+let title = loadImage("pictures/title.png");
+let scoreFrame = loadImage("pictures/score.png");
+let lose = loadImage ("pictures/lose.png");
+let win = loadImage("pictures/win.png");
+let frame = loadImage ("pictures/frame.png");
+let highscoreFrame = loadImage ("pictures/highscore.png");
+
 
 //visuals
 function drawScore (){
   push();
   score = snakeLength - 1;
-    textSize(30);
-    textAlign(CENTER);
-    fill (255);
-    text (score, 445, 65);
-    fill(64, 110, 61);
-    textSize(15);
-    text ("goal", 445, 100);
-    text (goal-1, 445, 120);
-    pop();
-  }
+
+  textSize(30);
+  textAlign(CENTER);
+  fill (255);
+  text (score, 445, 65);
+
+  fill(64, 110, 61);
+  textSize(15);
+  text ("goal", 445, 100);
+  text (goal-1, 445, 120);
+  pop();
+}
 
 function explanation (){
-
+  push();
   fill(255);
   textSize(25);
-  text("Can you help the hungry ekans to find some oran berries in the dark?", 450, 80, 300);
+  text("Can you help the hungry ekans to find some oran berries in the dark?", 450, 100, 300);
   text("Use your arrow keys to guide it!", 450, 215, 300);
   textSize(15);
   text("click on the title screen to start", 450, 300, 300);
+  pop();
 }
 
 function chooseAGoal (){
   push();
   textAlign(CENTER);
   fill(255);
-  textFont("Consolas");
   textSize(25);
   text ("Choose a goal and press enter to start", 450, 80, 300);
   text (25, 450, 200, 300);
@@ -41,6 +85,7 @@ function chooseAGoal (){
   text (142, 450, 300, 300);
   pop();
 
+  //buttons
   if (mouseX > 560 && mouseX < 620 && mouseY > 170 && mouseY < 210 && mouseIsPressed){
     goal = 26;
   }
@@ -53,6 +98,7 @@ function chooseAGoal (){
     goal = 143;
   }
 
+  // rect to show chosen goal
   if (goal === 26){
     push();
     stroke(248,194,58);
@@ -124,7 +170,7 @@ function berry (x,y, s){
 
 function food() {
   berry(foodPosition.x, foodPosition.y, 0.5);
-  for (let i = 0; i<= snakeLength; i++){
+  for (let i = 1; i<= snakeLength+1; i++){
     if (positionX[i] === foodPosition.x && positionY[i] === foodPosition.y){
       foodPosition.x = Math.floor(random(2, 13)) * 25;
       foodPosition.y = Math.floor(random(2, 13)) * 25;
@@ -320,6 +366,46 @@ if (currentSpeedX[0] === -25){
 pop();
 }
 
+function loseScreen (){
+  image(lose, 380, 10, 400, 400);
+
+  fill(17, 15, 46, 130);
+  rect(50, 50, 300, 300);
+  image(frame, -100,-115, 590, 635);
+  push();
+  translate(118, 50);
+  scale(0.35);
+  image(highscoreFrame, 0, 0);
+  pop();
+
+  //highscores
+      if (score > highscore[0]){
+        highscore.unshift(score);
+      }
+      if (score < highscore[0] && score > highscore[1]){
+        highscore.splice(1, 0, score);
+      }
+      if (score > highscore[2] && score < highscore[1]){
+        highscore.splice(2, 0, score);
+      }
+      if (highscore.length > 3){
+        highscore.pop();
+      }
+      fill(255);
+      textSize(35);
+      textAlign(CENTER);
+      text(highscore[0], 200, 170);
+      text(highscore[1], 200, 220);
+      text(highscore[2], 200, 270);
+
+    push();
+    fill(255);
+    textAlign(CENTER);
+    textSize(15 );
+    text ("press space to restart", 200, 342);
+    pop();
+}
+
 //engine
 
 function changingDirections() {
@@ -356,15 +442,6 @@ function eatingFood (){
 
     snakeLength += 1;
   }
-  
-  //checking if food is generated under the snake
-    for (let i = 1; i< snakeLength+1; i++){
-      if (positionX[i] === foodPosition.x && positionY[i] === foodPosition.y){
-        foodPosition.x = Math.floor(random(2, 13)) * 25;
-        foodPosition.y = Math.floor(random(2, 13)) * 25;
-        i = 0;
-      }
-    }
 }
 
 function drawSnake (){
@@ -444,63 +521,24 @@ function drawSnake (){
       }
     }
     pop();
-    }
+}
 
-
-//background
-let chess = { x: 0, y: 0 };
-
-//snake Design
-let snakeMainColor = {r:112, g:51, b:112};
-let snakeColor2 = {r:248, g:194, b:58};
-let headTilted = false;
-
-
-//snake engine
-let snakePosition = { x: 75, y: 50 };
-let positionX = [snakePosition.x-25];
-let positionY = [snakePosition.y];
-let snakeLength = 1;
-
-//movement 
-let speed = { x: 0, y: 0 };
-let movement = "right";
-let currentSpeedX = [25]; 
-let currentSpeedY = [0];
-
-//food
-let foodPosition = {
-  x: Math.floor(random(2, 13)) * 25,
-  y: Math.floor(random(2, 13)) * 25,
-};
-
-//score
-let score;
-let highscore = [0];
-let goal = 26;
-
-//gamescreens
-let game = "title";
-
-//images
-let title = loadImage("pictures/title.png");
-let scoreFrame = loadImage("pictures/score.png");
-let lose = loadImage ("pictures/lose.png");
-let win = loadImage("pictures/win.png");
-let frame = loadImage ("pictures/frame.png");
-let highscoreFrame = loadImage ("pictures/highscore.png");
 
 function draw() {
 clear();
 background(17, 15, 46);
 
-  if (game === "title"){
-    image(title, -10, -20, 450, 450);
-    if (mouseX > 50 && mouseX <370 && mouseY > 50 && mouseY < 350 && mouseIsPressed){
+//title screen
+ if (game === "title"){
+  image(title, -10, -20, 450, 450);
+  
+  //start button
+  if (mouseX > 50 && mouseX <370 && mouseY > 50 && mouseY < 350 && mouseIsPressed){
   game = "standby";
-}
-explanation();
-  }
+    }
+
+  explanation();
+ }
 
   if (game === "standby"){
     chooseAGoal();
@@ -554,6 +592,7 @@ if (game !== "title") {
 
   if (frameCount % 7 === 0) {
 
+    //updating the snake position arrays
     positionX.unshift(snakePosition.x); 
     if (positionX.length > snakeLength+1) {
       positionX.pop();
@@ -563,10 +602,12 @@ if (game !== "title") {
     if (positionY.length > snakeLength+1) {
       positionY.pop();
     }
-
+    
+    //moving the snake
     snakePosition.x += speed.x;
     snakePosition.y += speed.y; 
     
+    //updating the current movement
     currentSpeedX.unshift(speed.x);
     if (currentSpeedX.length > snakeLength+1) {
       currentSpeedX.pop();
@@ -578,8 +619,6 @@ if (game !== "title") {
    }
   }
 }
-
-  //losing
 
   //out of the canvas
   if (
@@ -602,66 +641,24 @@ if (game !== "title") {
 
   //losing screen
   if (game === "lost"){
-  image(lose, 380, 10, 400, 400);
-
-  fill(17, 15, 46, 130);
-  rect(50, 50, 300, 300);
-  image(frame, -100,-115, 590, 635);
-  push();
-  translate(118, 50);
-  scale(0.35);
-  image(highscoreFrame, 0, 0);
-  pop();
-
-  //highscores
-      if (score > highscore[0]){
-        highscore.unshift(score);
-      }
-      if (score < highscore[0] && score > highscore[1]){
-        highscore.splice(1, 0, score);
-      }
-      if (score > highscore[2] && score < highscore[1]){
-        highscore.splice(2, 0, score);
-      }
-      if (highscore.length > 3){
-        highscore.pop();
-      }
-      fill(255);
-      textSize(35);
-      textAlign(CENTER);
-      text(highscore[0], 200, 170);
-      text(highscore[1], 200, 220);
-      text(highscore[2], 200, 270);
-     push();
-fill(255);
-textAlign(CENTER);
-textSize(15 );
-text ("press space to restart", 200, 342);
-pop();
-
+    loseScreen();
     }
 
-   
-
-//winning
-if (snakeLength === goal){
-  game = "won";
-}
+  //winning
+  if (snakeLength === goal){
+    game = "won";
+    }
 
 //winning screen
-if (game === "won"){
-image(win, 390, -10, 440, 440);
-push();
-fill(255);
-textAlign(CENTER);
-textSize(20);
-text ("press space to restart", 200, 200);
-pop();
-}
-
-if (game === "lost"||game === "won"){
-
-}
+  if (game === "won"){
+    image(win, 390, -10, 440, 440);
+    push();
+    fill(255);
+    textAlign(CENTER);
+    textSize(20);
+    text ("press space to restart", 200, 200);
+    pop();
+    }
 
  //restart
   if (game === "lost" && keyIsDown(32) || game === "won" && keyIsDown(32)) {
