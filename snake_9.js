@@ -480,7 +480,7 @@ let highscore = [0];
 let goal = 26;
 
 //gamescreens
-let game = "lost";
+let game = "title";
 
 //images
 let title = loadImage("pictures/title.png");
