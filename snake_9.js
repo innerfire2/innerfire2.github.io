@@ -25,7 +25,7 @@ let currentSpeedY = [0];
 
 //food
 let foodPosition = {
-  x: Math.floor(random(2, 13)) * 25,
+  x: Math.floor(random(4, 13)) * 25,
   y: Math.floor(random(2, 13)) * 25,
 };
 
@@ -51,6 +51,7 @@ function drawScore (){
   push();
   score = snakeLength - 1;
 
+  textFont("Candara");
   textSize(30);
   textAlign(CENTER);
   fill (255);
@@ -65,6 +66,7 @@ function drawScore (){
 
 function explanation (){
   push();
+  textFont("Candara");
   fill(255);
   textSize(25);
   text("Can you help the hungry ekans to find some oran berries in the dark?", 450, 100, 300);
@@ -76,6 +78,7 @@ function explanation (){
 
 function chooseAGoal (){
   push();
+  textFont("Candara");
   textAlign(CENTER);
   fill(255);
   textSize(25);
@@ -169,7 +172,7 @@ function berry (x,y, s){
 }
 
 function food() {
-  for (let i = 1; i<= snakeLength+1; i++){
+  for (let i = 0; i<= snakeLength+1; i++){
     if (positionX[i] === foodPosition.x && positionY[i] === foodPosition.y){
       foodPosition.x = Math.floor(random(2, 13)) * 25;
       foodPosition.y = Math.floor(random(2, 13)) * 25;
@@ -392,6 +395,7 @@ function loseScreen (){
         highscore.pop();
       }
       fill(255);
+      textFont("Candara");
       textSize(35);
       textAlign(CENTER);
       text(highscore[0], 200, 170);
@@ -400,6 +404,7 @@ function loseScreen (){
 
     push();
     fill(255);
+    textFont("Candara");
     textAlign(CENTER);
     textSize(15 );
     text ("press space to restart", 200, 342);
@@ -654,6 +659,7 @@ if (game !== "title") {
     image(win, 375, 10, 390, 390);
     push();
     fill(255);
+    textFont("Candara");
     textAlign(CENTER);
     textSize(20);
     text ("press space to restart", 200, 200);
