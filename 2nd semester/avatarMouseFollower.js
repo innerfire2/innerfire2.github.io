@@ -62,5 +62,14 @@ function avatar (x,y,s) {
     triangle (-10, 30, 10, 30, 0, 40);
 
 }
- background (0);
-avatar (150, 150, 1);
+
+let x = 150;
+let y = 150;
+
+function draw (){
+clear();
+avatar (x, y, 0.4);
+
+x+=(mouseX - x)/20;
+y+=(mouseY - y)/20;
+}
